@@ -1,6 +1,6 @@
 package main
 import (
-	"github.com/turnage/graw"
+	//"github.com/turnage/graw"
 	"github.com/turnage/graw/reddit"
 	"github.com/nlopes/slack"
 	"log"
@@ -63,9 +63,11 @@ import (
 
 	func (r *GrabBot) harvestNewestInSubreddit(subRedditName string ,amount int) {
 		harvest := r.harvestSubreddit(subRedditName)
+		log.Println(harvest.Posts)
+		log.Println(len(harvest.Posts))
 		for _, post := range harvest.Posts[:amount] {
 			//GrabBot.sendSlackImage(r.slackChannel,post.Subreddit,post.Title,string(post.Ups),post.URL)
-			log.Printf(`%s posted "%s"\n`, post.Author, post.Title)
+			log.Printf(`[%d] %s posted "%s"\n`, post.CreatedUTC, post.Author, post.Title)
 		}
 	}
 
@@ -84,16 +86,19 @@ func main() {
 
 	GrabBot := NewGrabBot("agent.config")
 
-	//GrabBot.harvestNewestInSubreddit("/r/pics/",4)
 
-	cfg := graw.Config{Subreddits: []string{"pics"}}
+	GrabBot.harvestNewestInSubreddit("/r/pics/",12)
+
+	//cfg := graw.Config{Subreddits: []string{"pics"}}
 	//handler := GrabBot
-    //handler := &GrabBot{bot: bot}
+	//handler := &GrabBot{bot: bot}
+	/*
     if _, wait, err := graw.Run(GrabBot, GrabBot.bot, cfg); err != nil {
             log.Println("Failed to start graw run: ", err)
     } else {
             log.Println("graw run failed: ", wait())
 	}
+	*/
 
 
 }
