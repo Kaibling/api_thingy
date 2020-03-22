@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="refresh" content="30" >
+</head>
+<style type="text/css">  
+
+ footer {  
+   bottom : 2px;  
+   height : 40px;  
+   margin-top : 40px;  
+   text-align: center;  
+   vertical-align: middle; 
+   position:fixed;
+   width:100%;
+}
+
+table {  
+    height : 40px;  
+    font-size: 12px;
+    display: table;
+    margin-top : 40px;  
+    text-align: center;  
+    vertical-align: middle; 
+    position:fixed;
+    width:100%;
+    border-collapse: collapse;
+    font-family: lucida sans unicode,lucida grande,Sans-Serif;
+
+
+ }
+ th, td {
+    border: 1px solid; 
+    border-collapse: collapse;
+    border-spacing: 2px;
+    border-color: lightblue;
+ }
+</style>
+<header>
+<title>Trends</title>
+</header>
+<table>
+<tr>
+<th>Tweet</th>
+<th>Scanned</th>
+<th>News</th>
+</tr>
+{{ with .TweetTrends }}
+			{{ range . }}
+            <tr>
+            <td>{{.Subject}}</td>
+            <td>{{.FormattedDate}}</td>
+            <td>
+            <ui>
+            {{ with .News }}
+			{{ range . }}
+            <li>{{.}}</li>
+            {{ end }} 
+            </ui>
+      	{{ end }}
+            </td>
+            </tr>
+            {{ end }} 
+      	{{ end }}
+</table>
+
+<footer>
+<p>last Scan: {{.LastScan}}</p>
+</footer>
+</body>
+</html>
